@@ -4,6 +4,6 @@ cmake_minimum_required(VERSION 3.10)
 project(C-OpenGl-BoilerPlate)
 
 # add the executable
-add_executable(C-OpenGl-BoilerPlate main.c)
+add_executable(C-OpenGl-BoilerPlate source/main.c source/shader.c)
 
 target_link_libraries(C-OpenGl-BoilerPlate PUBLIC GL GLU glfw GLEW)
