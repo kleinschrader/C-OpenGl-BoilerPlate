@@ -40,3 +40,28 @@ GLuint loadShader(GLenum shaderType, const char* path) {
 
   return shader;
 }
+
+GLuint loadVertFragComboProgram(const char* vertexPath,const char* fragmentPath) {
+  GLuint prog = glCreateProgram();
+  
+  GLuint vert = loadShader(GL_VERTEX_SHADER,vertexPath);
+  GLuint frag = loadShader(GL_FRAGMENT_SHADER,fragmentPath);
+
+  int success;
+  char infoLog[512];
+
+  glAttachShader(prog, vert);
+  glAttachShader(prog, frag);
+  glLinkProgram(prog);
+  glGetProgramiv(prog, GL_LINK_STATUS, &success);
+  if (!success) {
+      glGetProgramInfoLog(prog, 512, NULL, infoLog);
+      printf("Error linking shader %s", infoLog);
+      abort();
+  }
+
+  glDeleteShader(vert);
+  glDeleteShader(frag);
+
+  return prog;
+}
